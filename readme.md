@@ -40,8 +40,8 @@ Array B ──┘
 2. Make sure you have **Cuda installed** and a **Cuda-capable GPU**. Cuda can be installed using `pacman` or `apt`:
 
     ```sh
-    nvidia-smi  # check if you have a cuda-capable gpu
     sudo pacman -Syu nvidia nvidia-utils nvidia-settings
+    nvidia-smi  # check if you have a cuda-capable gpu
     sudo pacman -S cuda
     ```
 
@@ -60,3 +60,4 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 ## 🙏 Acknowledgements
 
 This project was developed for the **`GPU Computing`** course **`INFO—H503`**. Special thanks to `Bonatto Daniele (ULB)` and `Soetens Eline (ULB)` for their guidance and support.
+
