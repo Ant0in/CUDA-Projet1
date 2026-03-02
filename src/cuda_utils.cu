@@ -22,13 +22,11 @@ namespace cuda_utils {
 
         // Record the start event, execute the function, and record the stop event
         checkCudaError(cudaEventRecord(start));
-        func();
-        cudaError_t err = cudaGetLastError();
-        checkCudaError(err);
+        func();  // execute the provided function 
+        checkCudaError(cudaGetLastError());
         checkCudaError(cudaEventRecord(stop));
-        // ...
-
         checkCudaError(cudaEventSynchronize(stop));
+        // end of timing code
 
         float milliseconds = 0;
         checkCudaError(cudaEventElapsedTime(&milliseconds, start, stop));
