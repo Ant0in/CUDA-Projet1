@@ -1,5 +1,5 @@
 
-#include "benchmark.cuh"
+#include "benchmarks.cuh"
 #include "kernels.cuh"
 #include "cuda_utils.cuh"
 
@@ -38,7 +38,7 @@ void Benchmark::runAddition(int n) {
 
     // measure the execution time of the vector addition kernel
     float ms = cuda_utils::measure([&]() {
-        kernels::add<<<grid, block>>>(d_a, d_b, d_c, n);
+        kernels::vecAdd<<<grid, block>>>(d_a, d_b, d_c, n);
     });
 
     float seconds = ms / 1000.0f;
@@ -79,7 +79,7 @@ void Benchmark::runMultiplication(int n) {
 
     // measure the execution time of the vector multiplication kernel
     float ms = cuda_utils::measure([&]() {
-        kernels::multiply<<<grid, block>>>(d_a, d_b, d_c, n);
+        kernels::vecMul<<<grid, block>>>(d_a, d_b, d_c, n);
     });
 
     float seconds = ms / 1000.0f;

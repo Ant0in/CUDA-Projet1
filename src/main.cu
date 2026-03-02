@@ -1,5 +1,5 @@
 
-#include "benchmark.cuh"
+#include "benchmarks.cuh"
 #include "cuda_utils.cuh"
 
 
