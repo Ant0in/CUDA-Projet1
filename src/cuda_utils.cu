@@ -8,7 +8,7 @@ namespace cuda_utils {
 
         // if error code is not success, print error message and exit
         if (err != cudaSuccess) {
-            std::cerr << "CUDA Error: " << cudaGetErrorString(err) << std::endl;
+            fprintf(stderr, "CUDA Error: %s %s %i\n", cudaGetErrorString(err), __FILE__, __LINE__);
             exit(EXIT_FAILURE);
         }
 
@@ -17,21 +17,24 @@ namespace cuda_utils {
     float measure(std::function<void()> func) {
 
         cudaEvent_t start, stop;
-        cudaEventCreate(&start);
-        cudaEventCreate(&stop);
+        checkCudaError(cudaEventCreate(&start));
+        checkCudaError(cudaEventCreate(&stop));
 
         // Record the start event, execute the function, and record the stop event
-        cudaEventRecord(start);
+        checkCudaError(cudaEventRecord(start));
         func();
-        cudaEventRecord(stop);
+        cudaError_t err = cudaGetLastError();
+        checkCudaError(err);
+        checkCudaError(cudaEventRecord(stop));
+        // ...
 
-        cudaEventSynchronize(stop);
+        checkCudaError(cudaEventSynchronize(stop));
 
         float milliseconds = 0;
-        cudaEventElapsedTime(&milliseconds, start, stop);
+        checkCudaError(cudaEventElapsedTime(&milliseconds, start, stop));
 
-        cudaEventDestroy(start);
-        cudaEventDestroy(stop);
+        checkCudaError(cudaEventDestroy(start));
+        checkCudaError(cudaEventDestroy(stop));
 
         return milliseconds;
 

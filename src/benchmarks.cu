@@ -32,6 +32,10 @@ void Benchmark::runAddition(int n) {
     cuda_utils::checkCudaError(cudaMalloc(&d_b, size));
     cuda_utils::checkCudaError(cudaMalloc(&d_c, size));
 
+    // memset the input vectors to some values (i.e. 1)
+    cuda_utils::checkCudaError(cudaMemset(d_a, 1, size));
+    cuda_utils::checkCudaError(cudaMemset(d_b, 1, size));
+
     // grid and block dimensions for launching the kernel
     dim3 block(BLOCK_SIZE);
     dim3 grid((n + block.x - 1) / block.x);
@@ -72,6 +76,10 @@ void Benchmark::runMultiplication(int n) {
     cuda_utils::checkCudaError(cudaMalloc(&d_a, size));
     cuda_utils::checkCudaError(cudaMalloc(&d_b, size));
     cuda_utils::checkCudaError(cudaMalloc(&d_c, size));
+
+    // memset the input vectors to some values (i.e. 1)
+    cuda_utils::checkCudaError(cudaMemset(d_a, 1, size));
+    cuda_utils::checkCudaError(cudaMemset(d_b, 1, size));
 
     // grid and block dimensions for launching the kernel
     dim3 block(BLOCK_SIZE);

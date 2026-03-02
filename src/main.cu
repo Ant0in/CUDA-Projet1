@@ -7,8 +7,8 @@ int main(int argc, char* argv[]) {
 
     Benchmark bench;
 
-    // run benchmarks for vector sizes from (2^9) to (2^26). 
-    for (int exp = 12; exp <= 26; exp++) {
+    // run benchmarks for vector sizes from 2^9 to 2^25
+    for (int exp = 9; exp <= 25; exp++) {
         int n = 1 << exp;
 
         bench.runAddition(n);
