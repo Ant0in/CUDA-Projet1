@@ -6,6 +6,7 @@
 #include <iostream>
 
 #define BLOCK_SIZE 256
+#define NUM_RUNS 10
 
 Benchmark::Benchmark() {
 
@@ -21,7 +22,7 @@ Benchmark::Benchmark() {
  * This method allocates memory for three vectors (a, b, c) on the GPU, launches the vector addition kernel, and measures its execution time.
  * It then calculates the GFLOPS achieved and prints the results to the console. Finally, it frees the allocated GPU memory.
  * @param n The size of the vectors to be added
- * @param k The number of times to run the kernel for averaging
+ * @param k The number of operations to perform for each element to increase the computational load
  */
 void Benchmark::runAddition(int n, int k) {
 
@@ -44,15 +45,16 @@ void Benchmark::runAddition(int n, int k) {
     float totalMs = 0.0f;
 
     // measure the execution time of the vector addition kernel
-    for (int i = 0; i < k; i++) {
+    for (int i = 0; i < NUM_RUNS; i++) {
         totalMs += cuda_utils::measure([&]() {
-            kernels::vecAdd<<<grid, block>>>(d_a, d_b, d_c, n);
+            kernels::vecAdd<<<grid, block>>>(d_a, d_b, d_c, n, k);
         });
     }
 
-    float ms = totalMs / k;
+    float ms = totalMs / NUM_RUNS;
     float seconds = ms / 1000.0f;
-    float gflops = (n / seconds) / 1e9f;
+    float totalFlops = (float)n * k;
+    float gflops = (totalFlops / seconds) / 1e9f;
     float bytes = 3.0f * n * sizeof(float);
     float bandwidth = (bytes / seconds) / 1e9f;
 
@@ -71,7 +73,7 @@ void Benchmark::runAddition(int n, int k) {
  * This method allocates memory for three vectors (a, b, c) on the GPU, launches the vector multiplication kernel, and measures its execution time.
  * It then calculates the GFLOPS achieved and prints the results to the console. Finally, it frees the allocated GPU memory.
  * @param n The size of the vectors to be multiplied
- * @param k The number of times to run the kernel for averaging
+ * @param k The number of operations to perform for each element to increase the computational load
  */
 void Benchmark::runMultiplication(int n, int k) {
 
@@ -94,15 +96,16 @@ void Benchmark::runMultiplication(int n, int k) {
     float totalMs = 0.0f;
 
     // measure the execution time of the vector multiplication kernel
-    for (int i = 0; i < k; i++) {
+    for (int i = 0; i < NUM_RUNS; i++) {
         totalMs += cuda_utils::measure([&]() {
-            kernels::vecMul<<<grid, block>>>(d_a, d_b, d_c, n);
+            kernels::vecMul<<<grid, block>>>(d_a, d_b, d_c, n, k);
         });
     }
 
-    float ms = totalMs / k;
+    float ms = totalMs / NUM_RUNS;
     float seconds = ms / 1000.0f;
-    float gflops = (n / seconds) / 1e9f;
+    float totalFlops = (float)n * k;
+    float gflops = (totalFlops / seconds) / 1e9f;
     float bytes = 3.0f * n * sizeof(float);
     float bandwidth = (bytes / seconds) / 1e9f;
 
@@ -145,15 +148,16 @@ void Benchmark::runAdditionJ(int n, int j, int k) {
     float totalMs = 0.0f;
 
     // measure the execution time of the vector addition kernel with j elements per thread
-    for (int i = 0; i < k; i++) {
+    for (int i = 0; i < NUM_RUNS; i++) {
         totalMs += cuda_utils::measure([&]() {
-            kernels::vecAddJ<<<grid, block>>>(d_a, d_b, d_c, n, j);
+            kernels::vecAddJ<<<grid, block>>>(d_a, d_b, d_c, n, j, k);
         });
     }
 
-    float ms = totalMs / k;
+    float ms = totalMs / NUM_RUNS;
     float seconds = ms / 1000.0f;
-    float gflops = (n / seconds) / 1e9f;
+    float totalFlops = (float)n * k;
+    float gflops = (totalFlops / seconds) / 1e9f;
     float bytes = 3.0f * n * sizeof(float);
     float bandwidth = (bytes / seconds) / 1e9f;
 
@@ -196,15 +200,16 @@ void Benchmark::runMultiplicationJ(int n, int j, int k) {
     float totalMs = 0.0f;
 
     // measure the execution time of the vector multiplication kernel with j elements per thread
-    for (int i = 0; i < k; i++) {
+    for (int i = 0; i < NUM_RUNS; i++) {
         totalMs += cuda_utils::measure([&]() {
-            kernels::vecMulJ<<<grid, block>>>(d_a, d_b, d_c, n, j);
+            kernels::vecMulJ<<<grid, block>>>(d_a, d_b, d_c, n, j, k);
         });
     }
 
-    float ms = totalMs / k;
+    float ms = totalMs / NUM_RUNS;
     float seconds = ms / 1000.0f;
-    float gflops = (n / seconds) / 1e9f;
+    float totalFlops = (float)n * k;
+    float gflops = (totalFlops / seconds) / 1e9f;
     float bytes = 3.0f * n * sizeof(float);
     float bandwidth = (bytes / seconds) / 1e9f;
 
