@@ -24,7 +24,7 @@ Benchmark::Benchmark() {
  * @param n The size of the vectors to be added
  * @param k The number of operations to perform for each element to increase the computational load
  */
-void Benchmark::runAddition(int n, int k) {
+float Benchmark::runAddition(int n, int k) {
 
     float *d_a, *d_b, *d_c;
     size_t size = n * sizeof(float);
@@ -58,13 +58,14 @@ void Benchmark::runAddition(int n, int k) {
     float bytes = 3.0f * n * sizeof(float);
     float bandwidth = (bytes / seconds) / 1e9f;
 
-    std::cout << "Addition - Size: " << n << ", Time: " << ms << " ms, GFLOPS: " << gflops << ", Bandwidth: " << bandwidth << " GB/s" << std::endl;
+    std::cout << "Addition - Size: " << n << ", Time: " << ms << " ms, GFLOPS: " << gflops << ", Bandwidth: " << bandwidth << " GB/s"<<" , K :" << k << std::endl;
 
     // free the allocated GPU memory
     cuda_utils::checkCudaError(cudaFree(d_a));
     cuda_utils::checkCudaError(cudaFree(d_b));
     cuda_utils::checkCudaError(cudaFree(d_c));
 
+    return gflops;
 }
 
 /**
@@ -75,7 +76,7 @@ void Benchmark::runAddition(int n, int k) {
  * @param n The size of the vectors to be multiplied
  * @param k The number of operations to perform for each element to increase the computational load
  */
-void Benchmark::runMultiplication(int n, int k) {
+float Benchmark::runMultiplication(int n, int k) {
 
     float *d_a, *d_b, *d_c;
     size_t size = n * sizeof(float);
@@ -109,13 +110,14 @@ void Benchmark::runMultiplication(int n, int k) {
     float bytes = 3.0f * n * sizeof(float);
     float bandwidth = (bytes / seconds) / 1e9f;
 
-    std::cout << "Multiplication - Size: " << n << ", Time: " << ms << " ms, GFLOPS: " << gflops << ", Bandwidth: " << bandwidth << " GB/s" << std::endl;
+    std::cout << "Multiplication - Size: " << n << ", Time: " << ms << " ms, GFLOPS: " << gflops << ", Bandwidth: " << bandwidth << " GB/s" << ", K: " << k << std::endl;
 
     // free the allocated GPU memory
     cuda_utils::checkCudaError(cudaFree(d_a));
     cuda_utils::checkCudaError(cudaFree(d_b));
     cuda_utils::checkCudaError(cudaFree(d_c));
 
+    return gflops;
 }
 
 /**
@@ -127,7 +129,7 @@ void Benchmark::runMultiplication(int n, int k) {
  * @param j The number of elements each thread should process
  * @param k The number of times to run the kernel for averaging
  */
-void Benchmark::runAdditionJ(int n, int j, int k) {
+float Benchmark::runAdditionJ(int n, int j, int k) {
 
     float *d_a, *d_b, *d_c;
     size_t size = n * sizeof(float);
@@ -161,13 +163,14 @@ void Benchmark::runAdditionJ(int n, int j, int k) {
     float bytes = 3.0f * n * sizeof(float);
     float bandwidth = (bytes / seconds) / 1e9f;
 
-    std::cout << "AdditionJ - Size: " << n << ", J: " << j << ", Time: " << ms << " ms, GFLOPS: " << gflops << ", Bandwidth: " << bandwidth << " GB/s" << std::endl;
+    std::cout << "AdditionJ - Size: " << n << ", J: " << j << ", Time: " << ms << " ms, GFLOPS: " << gflops << ", Bandwidth: " << bandwidth << " GB/s" << ", K: " << k << std::endl;
 
     // free the allocated GPU memory
     cuda_utils::checkCudaError(cudaFree(d_a));
     cuda_utils::checkCudaError(cudaFree(d_b));
     cuda_utils::checkCudaError(cudaFree(d_c));
 
+    return gflops;
 }
 
 /**
@@ -179,7 +182,7 @@ void Benchmark::runAdditionJ(int n, int j, int k) {
  * @param j The number of elements each thread should process
  * @param k The number of times to run the kernel for averaging
  */
-void Benchmark::runMultiplicationJ(int n, int j, int k) {
+float Benchmark::runMultiplicationJ(int n, int j, int k) {
 
     float *d_a, *d_b, *d_c;
     size_t size = n * sizeof(float);
@@ -213,11 +216,12 @@ void Benchmark::runMultiplicationJ(int n, int j, int k) {
     float bytes = 3.0f * n * sizeof(float);
     float bandwidth = (bytes / seconds) / 1e9f;
 
-    std::cout << "MultiplicationJ - Size: " << n << ", J: " << j << ", Time: " << ms << " ms, GFLOPS: " << gflops << ", Bandwidth: " << bandwidth << " GB/s" << std::endl;
+    std::cout << "MultiplicationJ - Size: " << n << ", J: " << j << ", Time: " << ms << " ms, GFLOPS: " << gflops << ", Bandwidth: " << bandwidth << " GB/s" <<", k :"<<k<< std::endl;
 
     // free the allocated GPU memory
     cuda_utils::checkCudaError(cudaFree(d_a));
     cuda_utils::checkCudaError(cudaFree(d_b));
     cuda_utils::checkCudaError(cudaFree(d_c));
 
+    return gflops;
 }
