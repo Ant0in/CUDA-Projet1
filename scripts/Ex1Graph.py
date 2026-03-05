@@ -39,7 +39,7 @@ plt.figure(figsize=(10, 6))
 ax3 = sns.scatterplot(data=df, x='Memory Performance', y='GFLOPS', hue='Type', s=50, alpha=0.6)
 
 ax3.set_xscale('log')
-ax3.set_yscale('log')
+ax3.set_yscale('log') 
 
 plt.title('Analyse d\'Efficacité : GFLOPS vs Bande Passante')
 plt.xlabel('Bande Passante (GB/s) [Log]')
