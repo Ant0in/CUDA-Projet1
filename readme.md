@@ -14,8 +14,10 @@ This project is part of the **INFO-H503 course (ULB)**. It implements simple vec
 
 The goal is to study **memory vs compute-bound operations** and visualize performance trends (GFLOPS, bandwidth) with different array sizes and computational intensity (`j` loops).
 
+Please refer to [**`res/guidelines.pdf`**](res/guidelines.pdf) or [**`res/reportH503.pdf`**](res/reportH503.pdf) for more info.
+
 <div align="center">
-  <img src="./res/thumbnail.png" alt="benchmark_run" width="80%" />
+  <img src="./res/thumbnail.png" alt="benchmark_run" width="80%" style="margin-top: 15px;" />
   <p align="center"><b>Figure 1</b>: Benchmark Tool running</p>
 </div>
 
