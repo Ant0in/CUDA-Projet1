@@ -60,4 +60,3 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 ## 🙏 Acknowledgements
 
 This project was developed for the **`GPU Computing`** course **`INFO—H503`**. Special thanks to `Bonatto Daniele (ULB)` and `Soetens Eline (ULB)` for their guidance and support.
-
