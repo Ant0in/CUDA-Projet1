@@ -14,11 +14,10 @@ This project is part of the **INFO-H503 course (ULB)**. It implements simple vec
 
 The goal is to study **memory vs compute-bound operations** and visualize performance trends (GFLOPS, bandwidth) with different array sizes and computational intensity (`j` loops).
 
-```sh
-Array A ──┐
-├─► GPU threads ──► Vector Op ──► Result C  # Kernel Workflow
-Array B ──┘
-```
+<div align="center">
+  <img src="./res/thumbnail.png" alt="benchmark_run" width="80%" />
+  <p align="center"><b>Figure 1</b>: Benchmark Tool running</p>
+</div>
 
 ## 📜 Features
 

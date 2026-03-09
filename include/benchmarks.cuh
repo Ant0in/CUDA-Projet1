@@ -15,9 +15,9 @@ public:
     Benchmark();
     ~Benchmark() = default;
 
-    void runAddition(int n, int k);
-    void runMultiplication(int n, int k);
-    void runAdditionJ(int n, int j, int k);
-    void runMultiplicationJ(int n, int j, int k);
+    float runAddition(int n, int k);
+    float runMultiplication(int n, int k);
+    float runAdditionJ(int n, int j, int k);
+    float runMultiplicationJ(int n, int j, int k);
 
 };
