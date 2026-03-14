@@ -2,6 +2,11 @@ import re
 import csv
 
 def transform_md_to_csv(input_filename, output_filename):
+    """
+    transform the md file from the benchmark to csv
+    :param input_filename: the md file to read
+    :param output_filename: the csv file to write
+    """
     n_pattern = re.compile(r'---- N = 2\^(\d+) \((\d+) elements\) ----')
     j_pattern = re.compile(r'J = (\d+)')
     data_pattern = re.compile(r'(\w+)\s+-\s+Size: (\d+).+?GFLOPS: ([\d\.]+).+?Bandwidth: ([\d\.]+)')
@@ -45,4 +50,3 @@ def transform_md_to_csv(input_filename, output_filename):
         writer.writerows(data_rows)
 
 
-# transform_md_to_csv('4070.md', 'performance_j_multi.csv')

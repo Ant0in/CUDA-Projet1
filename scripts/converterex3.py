@@ -1,9 +1,12 @@
 import re, csv, os
 
 def parse(path):
+    """
+    parse le fichier md du 3 ieme test pour en faire un csv. le md est le mem  qu'avant mais le csv doit etre mis dans un autre format
+    :param path: le chemin vers le fichier md
+    return: none, extrait tout dans roofline_4070.csv"""
     if not os.path.exists(path): return []
     res, n, j, go = [], 4194304, 2, False
-    # Regex flexible pour chopper type, gflops et k (peu importe la casse)
     reg = re.compile(r"(?P<t>Add|Mul).*?GFLOPS:\s*(?P<g>[\d.]+).*?[Kk]\s*:\s*(?P<k>\d+)", re.I)
 
     with open(path, 'r') as f:
