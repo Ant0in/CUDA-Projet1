@@ -2,6 +2,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 def plot(csv):
+    """Génere un graphique roofline a partir d'un csv
+    parametre :
+    csv : chemin vers le csv crée par le script converter3.py
+    return : None, crée un graphique roofline.png
+    """
     try:
         df = pd.read_csv(csv).sort_values('Intensity')
     except: return print("Fichier introuvable.")
